@@ -1,0 +1,1 @@
+MAX_ORDER_LIMIT = 50
