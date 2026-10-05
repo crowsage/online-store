@@ -15,7 +15,7 @@ from constants import MAX_ORDER_LIMIT
 def view_cart(request):
 
     user = request.user
-    cart, created = Cart.objects.get_or_create(user=user)
+    cart, _ = Cart.objects.get_or_create(user=user)
 
     serialzer = CartViewSerializer(cart)
 
@@ -34,7 +34,7 @@ def update_cart(request, variant_id):
         )
 
     user = request.user
-    cart, created_cart = Cart.objects.get_or_create(user=user)
+    cart, _ = Cart.objects.get_or_create(user=user)
     cart_item = CartItem.objects.filter(cart=cart, variant_id=variant_id).first()
 
     quantity = request.data.get("quantity", 1)
@@ -74,4 +74,9 @@ def update_cart(request, variant_id):
 @api_view(["POST"])
 @permission_classes([IsAuthenticated])
 def clear_cart(request):
-    pass
+
+    cart, _ = Cart.objects.get_or_create(user=request.user)
+    cart.items.all().delete()
+
+    serializer = CartViewSerializer(cart)
+    return Response(serializer.data)
