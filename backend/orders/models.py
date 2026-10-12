@@ -16,7 +16,6 @@ class Order(models.Model):
 
     PAYMENT_CHOICES = [
         ("cod", "Cash on Delivery"),
-        ("card", "Credit/Debit Card"),
     ]
 
     PAYMENT_STATUS = [

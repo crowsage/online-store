@@ -1,10 +1,12 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from .models import Order, OrderItem
-from catalog.models import CartItem, Cart
+from cart.models import Cart
 from rest_framework import status
+from django.db import transaction
+from .serializers import OrderDetailSerializer, OrderListSerializer
 
 
 # Create your views here.
@@ -23,16 +25,62 @@ def create_order(request):
         )
 
     # GETTING AND VALIDATING CART ITEMS
-    cart = Cart.objects.get_or_create(user=user)
-    items = list(cart.items.select_related("variant__product"))
+    cart, _ = Cart.objects.get_or_create(user=user)
+    cart_items = list(cart.items.select_related("variant__product"))
 
-    if not items:
+    if not cart_items:
         return Response(
             {"error": "Your cannot order an empty cart"},
             status=status.HTTP_400_BAD_REQUEST,
         )
 
     # CREATING ORDER
-    total = sum(item.variant.price * item.quantity for item in items)
+    total = sum(item.variant.price * item.quantity for item in cart_items)
 
-    return Response({"total": total})
+    with transaction.atomic():
+
+        order = Order.objects.create(
+            user=user,
+            payment_method=payment_method,
+            total=total,
+        )
+
+        for item in cart_items:
+
+            OrderItem.objects.create(
+                order=order,
+                variant=item.variant,
+                unit_price=item.variant.price,
+                quantity=item.quantity,
+                product_name=item.variant.product.name,
+                variant_name=item.variant.name,
+            )
+
+        cart.items.all().delete()
+
+    serializer = OrderDetailSerializer(order)
+    return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+
+# LIST ALL ORDERS OF THE REQUESTING USER
+@api_view(["GET"])
+@permission_classes([IsAuthenticated])
+def order_list(request):
+
+    user = request.user
+    orders = Order.objects.filter(user=user)
+
+    serializer = OrderListSerializer(orders, many=True)
+    return Response(serializer.data)
+
+
+# GET MORE DETAIL ABOUT REQUEST ORDER
+@api_view(["GET"])
+@permission_classes([IsAuthenticated])
+def order_detail(request, order_id):
+
+    user = request.user
+    order = get_object_or_404(Order, id=order_id, user=user)
+
+    serializer = OrderDetailSerializer(order)
+    return Response(serializer.data)
