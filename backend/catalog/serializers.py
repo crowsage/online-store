@@ -28,6 +28,8 @@ class ProductVariantSerializer(serializers.ModelSerializer):
 
 # SERIALIZER FOR PRODUCT LIST
 class ProductListSerializer(serializers.ModelSerializer):
+    category = CategorySerializer()
+
     class Meta:
         model = models.Product
         fields = ["id", "name", "image", "category", "slug", "created_at", "min_price"]
