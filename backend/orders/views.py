@@ -7,6 +7,7 @@ from cart.models import Cart
 from rest_framework import status
 from django.db import transaction
 from .serializers import OrderDetailSerializer, OrderListSerializer
+from constants import DELIVERY_CHARGE, FREE_DELIVERY_ABOVE
 
 
 # Create your views here.
@@ -35,13 +36,17 @@ def create_order(request):
         )
 
     # CREATING ORDER
-    total = sum(item.variant.price * item.quantity for item in cart_items)
+    subtotal = sum(item.variant.price * item.quantity for item in cart_items)
+    delivery_charge = 0 if subtotal >= FREE_DELIVERY_ABOVE else DELIVERY_CHARGE
+    total = subtotal + delivery_charge
 
     with transaction.atomic():
 
         order = Order.objects.create(
             user=user,
             payment_method=payment_method,
+            subtotal=subtotal,
+            delivery_charge=delivery_charge,
             total=total,
         )
 

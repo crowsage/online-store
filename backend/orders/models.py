@@ -26,36 +26,18 @@ class Order(models.Model):
     ]
 
     user = models.ForeignKey(User, on_delete=models.PROTECT, related_name="orders")
-
     created_at = models.DateTimeField(auto_now_add=True)
-    status = models.CharField(
-        choices=STATUS_CHOICES,
-        default="pending",
-        max_length=20,
-    )
-
+    status = models.CharField(choices=STATUS_CHOICES, default="pending", max_length=20)
     payment_method = models.CharField(
-        choices=PAYMENT_CHOICES,
-        default="cod",
-        max_length=20,
+        choices=PAYMENT_CHOICES, default="cod", max_length=20
     )
-
-    transaction_id = models.CharField(
-        blank=True,
-        default="",
-        max_length=100,
-    )
-
+    transaction_id = models.CharField(blank=True, default="", max_length=100)
     payment_status = models.CharField(
-        choices=PAYMENT_STATUS,
-        default="unpaid",
-        max_length=20,
+        choices=PAYMENT_STATUS, default="unpaid", max_length=20
     )
-
-    total = models.DecimalField(
-        decimal_places=2,
-        max_digits=10,
-    )
+    subtotal = models.DecimalField(decimal_places=2, max_digits=10)
+    delivery_charge = models.DecimalField(decimal_places=2, max_digits=10)
+    total = models.DecimalField(decimal_places=2, max_digits=10)
 
     class Meta:
         ordering = ["-created_at"]

@@ -34,6 +34,8 @@ class OrderAdmin(admin.ModelAdmin):
     readonly_fields = [
         "user",
         "payment_method",
+        "subtotal",
+        "delivery_charge",
         "total",
         "created_at",
     ]

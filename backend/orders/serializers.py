@@ -40,5 +40,7 @@ class OrderDetailSerializer(serializers.ModelSerializer):
             "transaction_id",
             "payment_status",
             "items",
+            "subtotal",
+            "delivery_charge",
             "total",
         ]
