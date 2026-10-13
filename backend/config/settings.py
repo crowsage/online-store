@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     "cart",
     "payments",
     "orders",
+    "cloudinary",
+    "cloudinary_storage",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -155,3 +157,14 @@ CORS_ALLOWED_ORIGINS = ["http://localhost:5173"]
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
+
+STORAGES = {
+    "default": {
+        "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+    },
+}
+
+CLOUDINARY_STORAGE = {"CLOUDINARY_URL": env("CLOUDINARY_URL")}

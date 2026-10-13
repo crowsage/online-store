@@ -14,7 +14,7 @@ class ProductBasicSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Product
-        fields = ["id", "name", "slug"]
+        fields = ["id", "name", "image", "slug"]
 
 
 # FOR PRODUCT VARIANT MODEL
@@ -30,7 +30,7 @@ class ProductVariantSerializer(serializers.ModelSerializer):
 class ProductListSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Product
-        fields = ["id", "name", "category", "slug", "created_at", "min_price"]
+        fields = ["id", "name", "image", "category", "slug", "created_at", "min_price"]
 
 
 # SERIALIZER FOR PRODUCT LIST
@@ -43,6 +43,7 @@ class ProductDetailSerializer(serializers.ModelSerializer):
         fields = [
             "id",
             "name",
+            "image",
             "description",
             "category",
             "slug",
