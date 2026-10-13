@@ -20,6 +20,8 @@ class Category(models.Model):
 class Product(models.Model):
 
     name = models.CharField(max_length=200, unique=True)
+    image = models.ImageField(upload_to="products/", blank=True, null=True)
+
     description = models.TextField()
     category = models.ForeignKey(
         to=Category, on_delete=models.PROTECT, related_name="products"
