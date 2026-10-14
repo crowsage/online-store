@@ -39,6 +39,12 @@ class Order(models.Model):
     delivery_charge = models.DecimalField(decimal_places=2, max_digits=10)
     total = models.DecimalField(decimal_places=2, max_digits=10)
 
+    full_name = models.CharField(max_length=100)
+    phone_number = models.CharField(max_length=20)
+    city = models.CharField(max_length=50)
+    address = models.TextField()
+    note = models.TextField(blank=True)
+
     class Meta:
         ordering = ["-created_at"]
 

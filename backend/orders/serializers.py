@@ -42,5 +42,10 @@ class OrderDetailSerializer(serializers.ModelSerializer):
             "items",
             "subtotal",
             "delivery_charge",
+            "full_name",
+            "city",
+            "address",
+            "phone_number",
+            "note",
             "total",
         ]

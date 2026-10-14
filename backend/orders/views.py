@@ -8,6 +8,7 @@ from rest_framework import status
 from django.db import transaction
 from .serializers import OrderDetailSerializer, OrderListSerializer
 from utils import calculate_delivery_charge
+import re
 
 
 # Create your views here.
@@ -17,7 +18,37 @@ def create_order(request):
 
     user = request.user
 
+    # VALIDATING USER INFO
+    full_name = (request.data.get("full_name") or "").strip()
+    phone_number = (request.data.get("phone_number") or "").strip()
+    city = (request.data.get("city") or "").strip()
+    address = (request.data.get("address") or "").strip()
+    note = (request.data.get("note") or "").strip()
+
+    if not full_name or not phone_number or not city or not address:
+        return Response(
+            {"error": "Name, phone number, city and address are required!"},
+            status=status.HTTP_400_BAD_REQUEST,
+        )
+
+    if not re.fullmatch(r"03\d{9}", phone_number):
+        return Response(
+            {"error": "Enter a valid phone number, like 03XXXXXXXXX."}, status=400
+        )
+
+    if len(full_name) > 100:
+        return Response(
+            {"error": "Full name cannot be longer then 100 characters"},
+            status=status.HTTP_400_BAD_REQUEST,
+        )
+    if len(city) > 50:
+        return Response(
+            {"error": "City name cannot be longer then 50 characters"},
+            status=status.HTTP_400_BAD_REQUEST,
+        )
+
     # GETTING AND VALIDATING PAYMENT METHOD
+
     payment_method = request.data.get("payment_method")
 
     if payment_method not in dict(Order.PAYMENT_CHOICES):

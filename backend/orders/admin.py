@@ -37,5 +37,10 @@ class OrderAdmin(admin.ModelAdmin):
         "subtotal",
         "delivery_charge",
         "total",
+        "full_name",
+        "phone_number",
+        "address",
+        "city",
+        "note",
         "created_at",
     ]
