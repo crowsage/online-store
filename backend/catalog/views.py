@@ -47,7 +47,7 @@ def product_detail(request, slug):
 @permission_classes([AllowAny])
 def category_list(request):
 
-    categories = Category.objects.filter(products__active=True)
+    categories = Category.objects.filter(products__active=True).distinct()
     serializer = CategorySerializer(categories, many=True)
 
     return Response(serializer.data)

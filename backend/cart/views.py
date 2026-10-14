@@ -40,7 +40,7 @@ def update_cart(request, variant_id):
     quantity = request.data.get("quantity", 1)
     try:
         quantity = int(quantity)
-    except ValueError:
+    except (ValueError, TypeError):
         return Response(
             {"message": "Invalid quantity"}, status=status.HTTP_400_BAD_REQUEST
         )

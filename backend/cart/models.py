@@ -11,7 +11,10 @@ class Cart(models.Model):
 
     @property
     def subtotal(self):
-        return sum(item.variant.price * item.quantity for item in self.items.all())
+        return sum(
+            item.variant.price * item.quantity
+            for item in self.items.select_related("variant")
+        )
 
     @property
     def delivery_charge(self):
