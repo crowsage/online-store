@@ -90,6 +90,11 @@ def create_order(request):
                 quantity=item.quantity,
                 product_name=item.variant.product.name,
                 variant_name=item.variant.name,
+                full_name=full_name,
+                phone_number=phone_number,
+                city=city,
+                address=address,
+                note=note,
             )
 
         cart.items.all().delete()
