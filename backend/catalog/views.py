@@ -36,7 +36,7 @@ def product_list(request):
 @permission_classes([AllowAny])
 def product_detail(request, slug):
 
-    product = get_object_or_404(Product, slug=slug)
+    product = get_object_or_404(Product, slug=slug, active=True)
     serializer = ProductDetailSerializer(product)
 
     return Response(serializer.data)

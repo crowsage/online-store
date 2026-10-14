@@ -33,6 +33,13 @@ def update_cart(request, variant_id):
             {"message": "product not found"}, status=status.HTTP_404_NOT_FOUND
         )
 
+    # CHECKING AVAILIBILITY
+    if quantity > 0 and (not variant.in_stock or not variant.product.active):
+        return Response(
+            {"message": "this item is currently unavailable"},
+            status=status.HTTP_400_BAD_REQUEST,
+        )
+
     user = request.user
     cart, _ = Cart.objects.get_or_create(user=user)
     cart_item = CartItem.objects.filter(cart=cart, variant_id=variant_id).first()

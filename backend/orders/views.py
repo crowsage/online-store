@@ -65,6 +65,18 @@ def create_order(request):
             {"error": "Your cannot order an empty cart"},
             status=status.HTTP_400_BAD_REQUEST,
         )
+    # CHECKING IF ALL ITEMS ARE AVAILABLE
+    unavailable = [
+        f"{item.variant.product.name} ({item.variant.name})"
+        for item in cart_items
+        if not item.variant.in_stock or item.variant.product.active
+    ]
+
+    if unavailable:
+        return Response(
+            {"message": "some items are not available", "items": unavailable},
+            status=status.HTTP_400_BAD_REQUEST,
+        )
 
     # CREATING ORDER
     subtotal = sum(item.variant.price * item.quantity for item in cart_items)
