@@ -17,9 +17,9 @@ def view_cart(request):
     user = request.user
     cart, _ = Cart.objects.get_or_create(user=user)
 
-    serialzer = CartViewSerializer(cart)
+    serializer = CartViewSerializer(cart)
 
-    return Response(serialzer.data)
+    return Response(serializer.data)
 
 
 # FOR ACTIONS LIKE CHANGING QUANTITY OR ADD OR REMOVING ITEM

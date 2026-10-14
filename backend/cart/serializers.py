@@ -18,4 +18,4 @@ class CartViewSerializer(ModelSerializer):
 
     class Meta:
         model = Cart
-        fields = ["id", "items", "total"]
+        fields = ["id", "items", "subtotal", "delivery_charge", "total"]
