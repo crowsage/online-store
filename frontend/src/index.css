@@ -4,7 +4,7 @@
     --bg: #D9D9D9;
     --text: hsl(0, 0%, 5%);
 
-    --border: #333333;
+    --border: hsl(0, 0%, 40%);
     --accent: #4F46E5;
 
     --default-border-radius: 8px;
@@ -12,8 +12,8 @@
     --input-bg: hsl(0, 0%, 90%);
 
 
-    --error-bg: hsla(0, 70%, 55%, 0.1);
-    --error-fg: hsla(0, 70%, 55%);
+    --error-bg: hsla(0, 30%, 55%, 0.2);
+    --error-fg: rgb(187, 5, 5);
 }
 
 * {
@@ -46,26 +46,48 @@ body {
 
 h1 {
     font-size: 32px;
+    color: var(--text);
 }
 
-.errorBox {
+.error {
     background-color: var(--error-bg);
     color: var(--error-fg);
 
     border: 1px solid var(--error-fg);
 
-    padding: 8px 16px;
     border-radius: var(--default-border-radius);
 
-    margin-top: 32px;
     max-width: 100%;
+
+
+    display: inline-flex;
+    align-items: center;
+
+    gap: 8px;
+    /* animation: showError 0.3s ease-out; */
+
+
+    opacity: 0;
+    padding: 0 0px;
+    margin-top: 0;
+    overflow: hidden;
+    visibility: hidden;
+    transition: all 0.2s;
+}
+
+.error.visible {
+    opacity: 1;
+    padding: 8px 16px;
+    margin-top: 16px;
+    visibility: visible;
+
 }
 
 .logo {
-    width: 50px;
-    height: 50px;
+    width: 48px;
+    height: 48px;
 
-    margin-bottom: 32px;
+    margin-bottom: 16px;
 
     object-fit: contain;
 
@@ -82,6 +104,7 @@ h1 {
     justify-content: center;
 
     padding: 32px;
+    /* padding-top: 16px; */
     gap: 32px;
 
     width: 100%;
