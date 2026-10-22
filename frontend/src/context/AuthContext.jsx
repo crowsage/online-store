@@ -5,11 +5,13 @@ const AuthContext = createContext()
 export function AuthProvider({ children }) {
 
     // STATES...
-    const [user, setUser] = useState()
+    const [user, setUser] = useState(null)
 
 
 
     // FUNCTIONS...
+
+    // REGISTERING FUNCTION
     async function register(username, email, password) {
 
         const response = await fetch(`${API_URL}/api/users/register/`, {
@@ -30,9 +32,37 @@ export function AuthProvider({ children }) {
         }
     }
 
+
+    // LOGIN FUNCTION
+    async function login(username, password) {
+
+        const response = await fetch(`${API_URL}/api/users/token/`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ username, password })
+        })
+
+
+        if (response.ok) {
+
+            const data = await response.json()
+
+            setUser({
+                "username": username,
+                "accessToken": data.accessToken,
+                "refreshToken": data.refreshToken,
+            })
+
+            return user
+        }
+
+        return null
+    }
+
+
     //RETURNING...
     return (
-        <AuthContext.Provider value={{ register }}>
+        <AuthContext.Provider value={{ register, login, user }}>
             {children}
         </AuthContext.Provider>
     )

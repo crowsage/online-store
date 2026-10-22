@@ -1,19 +1,45 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=DM+Serif+Display:ital@0;1&display=swap');
 
 :root {
-    --bg: #D9D9D9;
+    --bg: hsl(0, 0%, 85%);
     --text: hsl(0, 0%, 5%);
 
+    --heading: hsl(0, 0%, 15%);
+
     --border: hsl(0, 0%, 40%);
-    --accent: #4F46E5;
+    --accent: #5048e5;
 
     --default-border-radius: 8px;
 
-    --input-bg: hsl(0, 0%, 90%);
+    --input-bg: hsl(0, 0%, 88%);
 
 
     --error-bg: hsla(0, 30%, 55%, 0.2);
     --error-fg: rgb(187, 5, 5);
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg: hsl(0, 0%, 7%);
+        --text: hsl(0, 0%, 95%);
+
+        --heading: hsl(0) --border: hsl(0, 0%, 50%);
+        --accent: #5048e5;
+
+        --default-border-radius: 8px;
+
+        --input-bg: hsl(0, 0%, 10%);
+
+
+        --error-bg: hsla(0, 30%, 45%, 0.035);
+        --error-fg: rgb(230, 78, 78);
+
+    }
+}
+
+::selection {
+    background-color: var(--accent);
+    color: hsl(0, 0%, 95%);
 }
 
 * {
@@ -46,7 +72,10 @@ body {
 
 h1 {
     font-size: 32px;
-    color: var(--text);
+    color: var(--heading);
+    font-family: "DM Serif Display";
+    letter-spacing: 3%;
+
 }
 
 .error {
@@ -133,6 +162,7 @@ h1 {
     border-radius: var(--default-border-radius);
 
     background-color: var(--input-bg);
+    color: var(--text);
 
     width: 100%;
 

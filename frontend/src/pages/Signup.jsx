@@ -5,7 +5,7 @@ import { InfoCircle, Eye, EyeClosed } from "iconoir-react"
 
 export default function Signup() {
 
-    // FORM STATES===========|
+    // STATES
     const [username, setUsername] = useState("")
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
