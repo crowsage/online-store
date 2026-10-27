@@ -1,8 +1,8 @@
-import { useState } from "react"
-import { InfoCircle, EyeClosed, Eye } from "iconoir-react"
+import { useEffect, useState } from "react"
 import { useAuth } from "../context/AuthContext"
 import { useNavigate } from "react-router-dom"
 import { Link } from "react-router-dom"
+import { LuInfo, LuEye, LuEyeClosed } from "react-icons/lu"
 
 export default function Login() {
 
@@ -15,7 +15,7 @@ export default function Login() {
     const [error, setError] = useState("")
 
     //CONTEXT
-    const { login } = useAuth()
+    const { login, user } = useAuth()
 
     // NAVIGATION
     const navigate = useNavigate()
@@ -42,16 +42,16 @@ export default function Login() {
     return (
         <div className="AuthFormContainer">
 
-            <img src="/logo2.svg" alt="shop" className="logo" />
+            <img src="/logo.svg" alt="shop" className="logo" />
             <h1>Welcome Back</h1>
-            <span className={error ? "error visible" : "error"}><InfoCircle />{error}</span>
+            <span className={error ? "error visible" : "error"}><LuInfo />{error}</span>
             <form className="authForm" onSubmit={handleSubmit}>
                 <div className="formInputContainer">
-                    <input type="text" name="username" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
-                    <span className="passwordContainer">
+                    <input type="text" name="username" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} className={error ? "errorField" : ""} />
+                    <span className={error ? "passwordContainer errorField" : "passwordContainer"}>
                         <input type={showPassword ? "text" : "password"} name="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
                         <button onClick={toggleShowPassword} type="button" className="showPassBtn">
-                            {showPassword ? <EyeClosed className="passIcon" /> : <Eye className="passIcon" />}
+                            {showPassword ? <LuEyeClosed className="passIcon" /> : <LuEye className="passIcon" />}
                         </button>
                     </span>
 

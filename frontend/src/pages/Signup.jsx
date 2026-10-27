@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { useAuth } from "../context/AuthContext"
-import { InfoCircle, Eye, EyeClosed } from "iconoir-react"
+import { LuInfo, LuEye, LuEyeClosed } from "react-icons/lu"
 
 export default function Signup() {
 
@@ -83,9 +83,9 @@ export default function Signup() {
     return (
         <div className="AuthFormContainer">
 
-            <img src="/logo2.svg" alt="shop" className="logo" />
+            <img src="/logo.svg" alt="shop" className="logo" />
             <h1>Get Started</h1>
-            <span className={error ? "error visible" : "error"}><InfoCircle />{error}</span>
+            <span className={error ? "error visible" : "error"}><LuInfo />{error}</span>
             <form className="authForm" onSubmit={handleSubmit}>
                 <div className="formInputContainer">
                     <input type="text" name="username" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} className={error.toLowerCase().includes("username") ? "errorField" : ""} />
@@ -94,7 +94,7 @@ export default function Signup() {
                     <span className={error.toLowerCase().includes("password") ? "passwordContainer errorField" : "passwordContainer"}>
                         <input type={showPassword ? "text" : "password"} name="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
                         <button onClick={toggleShowPassword} type="button" className="showPassBtn">
-                            {showPassword ? <EyeClosed className="passIcon" /> : <Eye className="passIcon" />}
+                            {showPassword ? <LuEyeClosed className="passIcon" /> : <LuEye className="passIcon" />}
                         </button>
                     </span>
 

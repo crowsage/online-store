@@ -1,6 +1,6 @@
 {
-    "name": "Store",
-    "short_name": "Shop",
+    "name": "Goodwear - Demo Clothing Store",
+    "short_name": "Goodwear",
     "start_url": "/signup",
     "display": "standalone",
     "background_color": "#D9D9D9",
