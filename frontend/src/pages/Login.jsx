@@ -17,8 +17,17 @@ export default function Login() {
     //CONTEXT
     const { login, user } = useAuth()
 
-    // NAVIGATION
+    // HOOKS
     const navigate = useNavigate()
+
+
+    // USEEFFECTS
+
+    useEffect(() => {
+        if (user) {
+            navigate(-1)
+        }
+    }, [])
 
     // FUNCTIONS
     async function handleSubmit(e) {

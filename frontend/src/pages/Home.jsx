@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react"
 import ProductCard from "../components/ProductCard"
-import { CgShoppingBag, CgMenu } from "react-icons/cg"
 import { Link } from "react-router-dom"
+import Header from "../components/Header"
 
 export default function Home() {
 
     // STATES
     const [products, setProducts] = useState(null)
-    const [discount, setDiscount] = useState(10)
 
     // UseEFFECT
     useEffect(() => {
@@ -32,16 +31,7 @@ export default function Home() {
     return (
         <>
             <div className="hero">
-                {discount && <div className="discountBanner">{discount}% OFF SUMMER SALE</div>}
-                <div className="header">
-                    <CgMenu className="icon menuIcon" />
-                    <div className="logo">
-                        <img src="/logo.svg" alt="logo" />
-                        <h1>GOODWEAR</h1>
-                    </div>
-                    <CgShoppingBag className="icon" />
-                </div>
-
+                <Header />
                 <div className="navBar">
                     <Link className="navLinks">CASUAL SHIRTS</Link>
                     <Link className="navLinks">T-SHIRTS</Link>

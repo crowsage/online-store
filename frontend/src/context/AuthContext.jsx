@@ -4,7 +4,7 @@ const AuthContext = createContext()
 export function AuthProvider({ children }) {
 
     // STATES...
-    const [user, setUser] = useState(null)
+    const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")) || null)
 
 
 
@@ -45,12 +45,15 @@ export function AuthProvider({ children }) {
         if (response.ok) {
 
             const data = await response.json()
-
-            setUser({
+            const userObj = {
                 "username": username,
                 "accessToken": data.accessToken,
                 "refreshToken": data.refreshToken,
-            })
+            }
+
+            localStorage.setItem("user", JSON.stringify(userObj))
+
+            setUser(userObj)
 
             return user
         }

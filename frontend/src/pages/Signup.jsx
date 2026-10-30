@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { useAuth } from "../context/AuthContext"
 import { LuInfo, LuEye, LuEyeClosed } from "react-icons/lu"
@@ -14,11 +14,18 @@ export default function Signup() {
 
     const [error, setError] = useState("")
     // CONTEXT
-    const { register } = useAuth()
+    const { register, user } = useAuth()
 
-    // Navigation
+    // HOOKS
     const navigate = useNavigate()
 
+
+    // USEEFFECTS
+    useEffect(() => {
+        if (user) {
+            navigate(-1)
+        }
+    })
     // FUNCTIONS============|
     function formatErrors(errors) {
         if (errors.username) {
