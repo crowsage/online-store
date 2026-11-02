@@ -27,7 +27,9 @@ def view_cart(request):
 @permission_classes([IsAuthenticated])
 def update_cart(request, variant_id):
 
+    quantity = request.data.get("quantity", 1)
     variant = ProductVariant.objects.filter(id=variant_id).first()
+
     if not variant:
         return Response(
             {"message": "product not found"}, status=status.HTTP_404_NOT_FOUND
@@ -44,7 +46,6 @@ def update_cart(request, variant_id):
     cart, _ = Cart.objects.get_or_create(user=user)
     cart_item = CartItem.objects.filter(cart=cart, variant_id=variant_id).first()
 
-    quantity = request.data.get("quantity", 1)
     try:
         quantity = int(quantity)
     except (ValueError, TypeError):
