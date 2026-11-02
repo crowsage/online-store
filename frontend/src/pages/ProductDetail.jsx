@@ -2,7 +2,10 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Header
     from "../components/Header";
+import { useAuth } from "../context/AuthContext";
 export default function ProductDetail() {
+    // CONTENT
+    const { user, apiRequest } = useAuth()
 
     // STATES
     const [product, setProduct] = useState()
@@ -19,6 +22,9 @@ export default function ProductDetail() {
     }, [slug])
 
     // FUNCTIONS
+
+
+
 
     async function fetchProductDetail(slug) {
 
@@ -42,10 +48,26 @@ export default function ProductDetail() {
         }
     }
 
+
     function selectVariant(v) {
         if (v && v.in_stock) {
             setSelectedVariant(v)
         }
+    }
+
+
+    // TO ADD TO CART
+    async function addToCart(productId) {
+
+
+        // LOGIN BEFORE ADDING TO CART
+        if (!user) {
+            navigate('/login')
+            return
+        }
+
+        apiRequest(`/api/cart/update/${selectVariant.id}/`)
+
     }
 
 
@@ -76,7 +98,7 @@ export default function ProductDetail() {
 
                             ))}
                         </div>
-                        <button className="addToBagBtn">ADD TO BAG</button>
+                        <button className="addToBagBtn" onClick={() => { addToCart([product.id]) }}>ADD TO BAG</button>
                     </div>
                 </div>
             </div> : <span>Loading</span>}

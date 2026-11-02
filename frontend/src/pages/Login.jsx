@@ -25,9 +25,9 @@ export default function Login() {
 
     useEffect(() => {
         if (user) {
-            navigate(-1)
+            navigate("/")
         }
-    }, [])
+    }, [user])
 
     // FUNCTIONS
     async function handleSubmit(e) {
