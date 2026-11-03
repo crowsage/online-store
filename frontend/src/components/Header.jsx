@@ -8,12 +8,12 @@ export default function Header() {
 
     const discount = null;
     const navigate = useNavigate()
-    const { fetchCartCount, cartCount } = useCart()
+    const { fetchCartCount, cartCount, cart } = useCart()
     const { user } = useAuth()
 
     useEffect(() => {
         fetchCartCount()
-    }, [user])
+    }, [user, cart])
     return (
         <>
             {discount && <div className="discountBanner">{discount}% OFF SUMMER SALE</div>}

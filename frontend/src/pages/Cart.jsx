@@ -27,19 +27,18 @@ export default function Cart() {
     // FUNCTIONS
     async function quantityDecrease(item) {
         updateCart(item.variant.id, item.quantity - 1)
-        fetchCart()
     }
 
     async function quantityIncrease(item) {
         updateCart(item.variant.id, item.quantity + 1)
     }
-
+    console.log("CART:", cart)
     // RETURN
     return (
         <>
             <Header />
             {cart && cartCount > 0 && <h1 className="cartHeading">Your Cart</h1>}
-            {cart && cartCount > 0 ? <div className="cartView">
+            {cart && Array.isArray(cart.items) && cartCount > 0 ? <div className="cartView">
 
                 <table className="cartItems">
                     <tbody>

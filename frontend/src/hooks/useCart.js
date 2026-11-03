@@ -42,7 +42,7 @@ export function useCart() {
 
         const response = await apiRequest(`/api/cart/update/${variantId}/`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ quantity }) })
         if (response.ok) {
-            const data = response.json()
+            const data = await response.json()
             setCart(data)
         }
     }

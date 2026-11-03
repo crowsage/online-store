@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import Header
     from "../components/Header";
 import { useAuth } from "../context/AuthContext";
+import { useCart } from "../hooks/useCart";
 export default function ProductDetail() {
     // CONTENT
     const { user, apiRequest } = useAuth()
@@ -10,6 +11,7 @@ export default function ProductDetail() {
     // STATES
     const [product, setProduct] = useState()
     const [selectedVariant, setSelectedVariant] = useState()
+    const { updateCart, cart } = useCart()
 
     // HOOKS
     const { slug } = useParams()
@@ -57,17 +59,13 @@ export default function ProductDetail() {
 
 
     // TO ADD TO CART
-    async function addToCart(productId) {
-
-
+    async function addToCart() {
         // LOGIN BEFORE ADDING TO CART
         if (!user) {
             navigate('/login')
             return
         }
-
-        apiRequest(`/api/cart/update/${selectVariant.id}/`)
-
+        updateCart(selectedVariant.id)
     }
 
 
@@ -98,7 +96,7 @@ export default function ProductDetail() {
 
                             ))}
                         </div>
-                        <button className="addToBagBtn" onClick={() => { addToCart([product.id]) }}>ADD TO BAG</button>
+                        <button className="addToBagBtn" onClick={addToCart}>ADD TO BAG</button>
                     </div>
                 </div>
             </div> : <span>Loading</span>}
