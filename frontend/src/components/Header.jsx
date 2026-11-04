@@ -3,17 +3,14 @@ import { useNavigate } from "react-router-dom";
 import { useCart } from "../hooks/useCart";
 import { useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
+import { useCartContext } from "../context/CartContext"
 
 export default function Header() {
 
     const discount = null;
     const navigate = useNavigate()
-    const { fetchCartCount, cartCount, cart } = useCart()
-    const { user } = useAuth()
+    const { cartCount } = useCartContext()
 
-    useEffect(() => {
-        fetchCartCount()
-    }, [user, cart])
     return (
         <>
             {discount && <div className="discountBanner">{discount}% OFF SUMMER SALE</div>}

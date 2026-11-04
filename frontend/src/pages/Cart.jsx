@@ -8,7 +8,7 @@ export default function Cart() {
 
     // STATES
     const { user, apiRequest } = useAuth()
-    const { fetchCart, cart, cartCount, fetchCartCount, updateCart } = useCart()
+    const { fetchCart, cart, cartCount, updateCart } = useCart()
     const [quantity, setQuantity] = useState()
 
     // HOOKS
@@ -21,7 +21,6 @@ export default function Cart() {
             navigate("/login")
         }
         fetchCart()
-        fetchCartCount()
     }, [])
 
     // FUNCTIONS

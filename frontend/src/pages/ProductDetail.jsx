@@ -12,6 +12,7 @@ export default function ProductDetail() {
     const [product, setProduct] = useState()
     const [selectedVariant, setSelectedVariant] = useState()
     const { updateCart, cart } = useCart()
+    const [inCart, setInCart] = useState(false)
 
     // HOOKS
     const { slug } = useParams()
@@ -23,6 +24,12 @@ export default function ProductDetail() {
         fetchProductDetail(slug)
     }, [slug])
 
+
+    // useEffect(() => {
+
+
+
+    // }, [cart])
     // FUNCTIONS
 
 
@@ -65,6 +72,7 @@ export default function ProductDetail() {
             navigate('/login')
             return
         }
+
         updateCart(selectedVariant.id)
     }
 
@@ -96,7 +104,11 @@ export default function ProductDetail() {
 
                             ))}
                         </div>
-                        <button className="addToBagBtn" onClick={addToCart}>ADD TO BAG</button>
+                        {inCart ? <span>
+                            <button>-</button>
+                            <span>1</span>
+                            <button>+</button>
+                        </span> : <button className="addToBagBtn" onClick={addToCart}>ADD TO BAG</button>}
                     </div>
                 </div>
             </div> : <span>Loading</span>}

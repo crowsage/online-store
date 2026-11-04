@@ -5,7 +5,7 @@ import Signup from "./pages/Signup"
 import { AuthProvider } from "./context/AuthContext"
 import ProductDetail from "./pages/ProductDetail"
 import Cart from "./pages/Cart"
-
+import { CartProvider } from "./context/CartContext"
 
 export default function App() {
 
@@ -21,7 +21,10 @@ export default function App() {
 
   return (
     <AuthProvider>
-      <RouterProvider router={router} />
+      <CartProvider>
+
+        <RouterProvider router={router} />
+      </CartProvider>
     </AuthProvider>
   )
 }
