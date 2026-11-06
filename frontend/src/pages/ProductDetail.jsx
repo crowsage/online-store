@@ -28,7 +28,20 @@ export default function ProductDetail() {
 
     useEffect(() => {
         productInCart()
-    }, [cart, product, selectedVariant])
+    }, [cart, product])
+
+
+    useEffect(() => {
+
+        setInCart(
+            variantsInCart?.find(
+                item => item.variant?.id === selectedVariant?.id
+            ) ?? false
+        )
+
+    }, [variantsInCart, selectedVariant])
+
+
     // FUNCTIONS
 
     function productInCart() {
@@ -37,8 +50,10 @@ export default function ProductDetail() {
         const inCartIds = cart.items?.filter(item =>
             product.variants?.some(v => v.id === item.variant.id)
         )
-        console.log("this", inCartIds)
 
+        if (inCartIds) {
+            setVariantsInCart(inCartIds)
+        }
     }
 
 
@@ -87,11 +102,11 @@ export default function ProductDetail() {
 
 
     async function quantityDecrease(item) {
-        updateCart(item.id, item.quantity - 1)
+        updateCart(item.variant.id, item.quantity - 1)
     }
 
     async function quantityIncrease(item) {
-        updateCart(item.id, item.quantity + 1)
+        updateCart(item.variant.id, item.quantity + 1)
     }
 
     return (
@@ -121,12 +136,10 @@ export default function ProductDetail() {
 
                             ))}
                         </div>
-                        {inCart ? <div className="quantity">
-
-
-                            <button onClick={() => quantityDecrease(selectedVariant)}>-</button>
-                            {selectedVariant.quantity}
-                            <button onClick={() => quantityIncrease(selectedVariant)}>+</button>
+                        {inCart ? <div className="quantityBtn">
+                            <button onClick={() => quantityDecrease(inCart)}>-</button>
+                            {inCart.quantity}
+                            <button onClick={() => quantityIncrease(inCart)}>+</button>
                         </div> : <button className="addToBagBtn" onClick={addToCart}>ADD TO BAG</button>}
                     </div>
                 </div>

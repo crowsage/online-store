@@ -615,7 +615,8 @@ h1 {
     display: block;
 }
 
-.productPageHeader .productOptions .addToBagBtn {
+.productPageHeader .productOptions .addToBagBtn,
+.productPageHeader .productOptions .quantityBtn {
     background-color: var(--text);
     color: var(--bg);
 
@@ -635,6 +636,29 @@ h1 {
     color: var(--text);
 }
 
+.productPageHeader .productOptions .quantityBtn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    font-size: 16px;
+
+    background-color: var(--fg);
+    color: var(--fg);
+
+    cursor: default;
+}
+
+.productPageHeader .productOptions .quantityBtn button {
+    background-color: transparent;
+    border: none;
+
+    cursor: pointer;
+
+    font-size: 16px;
+    font-weight: bold;
+
+}
 
 /* CART PAGE */
 .cartView {
