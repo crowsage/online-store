@@ -20,8 +20,8 @@ export default function Header() {
                     <img src="/logo.svg" alt="logo" />
                     <h1>GOODWEAR</h1>
                 </div>
-                <span>
-                    <span className="cartCount">{cartCount}</span>
+                <span className="cartIconContainer">
+                    {cartCount > 0 && <span className="cartCount">{cartCount}</span>}
                     <CgShoppingBag className="icon" onClick={() => navigate("/cart")} />
                 </span>
             </div>
