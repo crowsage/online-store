@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import Header
-    from "../components/Header";
+import Header from "../components/Header";
 import { useAuth } from "../context/AuthContext";
 import { useCart } from "../hooks/useCart";
+
 export default function ProductDetail() {
     // CONTENT
     const { user, apiRequest } = useAuth()
@@ -13,6 +13,7 @@ export default function ProductDetail() {
     const [selectedVariant, setSelectedVariant] = useState()
     const { updateCart, cart } = useCart()
     const [inCart, setInCart] = useState(false)
+    const [variantsInCart, setVariantsInCart] = useState([])
 
     // HOOKS
     const { slug } = useParams()
@@ -25,14 +26,20 @@ export default function ProductDetail() {
     }, [slug])
 
 
-    // useEffect(() => {
-
-
-
-    // }, [cart])
+    useEffect(() => {
+        productInCart()
+    }, [cart, product, selectedVariant])
     // FUNCTIONS
 
+    function productInCart() {
 
+        if (!cart || !product) return;
+        const inCartIds = cart.items?.filter(item =>
+            product.variants?.some(v => v.id === item.variant.id)
+        )
+        console.log("this", inCartIds)
+
+    }
 
 
     async function fetchProductDetail(slug) {
@@ -46,11 +53,12 @@ export default function ProductDetail() {
 
         if (response.ok) {
             const data = await response.json()
-            console.log(data)
 
             // select default variant
             const variant = data.variants.find(v => v.in_stock === true)
             setSelectedVariant(variant)
+
+            console.log(data)
 
             // OFC
             setProduct(data)
@@ -61,6 +69,7 @@ export default function ProductDetail() {
     function selectVariant(v) {
         if (v && v.in_stock) {
             setSelectedVariant(v)
+            console.log(selectedVariant)
         }
     }
 
@@ -76,6 +85,14 @@ export default function ProductDetail() {
         updateCart(selectedVariant.id)
     }
 
+
+    async function quantityDecrease(item) {
+        updateCart(item.id, item.quantity - 1)
+    }
+
+    async function quantityIncrease(item) {
+        updateCart(item.id, item.quantity + 1)
+    }
 
     return (
         <>
@@ -104,11 +121,13 @@ export default function ProductDetail() {
 
                             ))}
                         </div>
-                        {inCart ? <span>
-                            <button>-</button>
-                            <span>1</span>
-                            <button>+</button>
-                        </span> : <button className="addToBagBtn" onClick={addToCart}>ADD TO BAG</button>}
+                        {inCart ? <div className="quantity">
+
+
+                            <button onClick={() => quantityDecrease(selectedVariant)}>-</button>
+                            {selectedVariant.quantity}
+                            <button onClick={() => quantityIncrease(selectedVariant)}>+</button>
+                        </div> : <button className="addToBagBtn" onClick={addToCart}>ADD TO BAG</button>}
                     </div>
                 </div>
             </div> : <span>Loading</span>}

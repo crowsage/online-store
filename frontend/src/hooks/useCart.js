@@ -1,39 +1,13 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useAuth } from "../context/AuthContext"
 import { useCartContext } from "../context/CartContext"
 
 export function useCart() {
 
     // Context
-    const { apiRequest, user } = useAuth()
-    const { cart, setCart, cartCount, setCartCount } = useCartContext()
+    const { apiRequest } = useAuth()
+    const { cart, setCart, cartCount, setCartCount, fetchCart, getCartCount } = useCartContext()
 
-
-
-
-    // Calculate number of items in the cart
-    function getCartCount(cartData) {
-        if (!user || !cartData) return
-
-
-        const count = cartData.items.reduce((sum, item) => sum + item.quantity, 0)
-        setCartCount(count)
-    }
-
-    // Fetch current user's cart
-    async function fetchCart() {
-
-        const response = await apiRequest(`/api/cart/`, { method: "GET" })
-
-        if (response?.ok) {
-            const data = await response.json()
-            console.log(data)
-            setCart(data)
-            getCartCount(data)
-            return data
-        }
-
-    }
 
 
 
@@ -49,5 +23,5 @@ export function useCart() {
         }
     }
 
-    return ({ fetchCart, cart, cartCount, updateCart })
+    return ({ cart, setCart, cartCount, setCartCount, fetchCart, updateCart })
 }
