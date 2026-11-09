@@ -36,68 +36,55 @@ export default function Cart() {
     return (
         <>
             <Header />
-            {cart && cartCount > 0 && <h1 className="cartHeading">Your Cart</h1>}
+
+            {cart && Array.isArray(cart.items) && cartCount > 0 ? <h2 className="cartHeading">CART</h2> : ""}
             {cart && Array.isArray(cart.items) && cartCount > 0 ? <div className="cartView">
 
-                <table className="cartItems">
-                    <tbody>
+                <div className="cartItems">
 
-                        <tr>
-                            <th>Product</th>
-                            <th>Quantity</th>
-                            <th>Subtotal</th>
-                        </tr>
-                        {cart.items.map((item) => (
-                            <tr className="cartItem" key={item.id}>
-                                <td>
-                                    <div className="product">
+                    {cart.items.map((item) => (
+                        <div className="cartItem">
+                            <div className="cartItemLeft">
 
-                                        <img src={item.variant.product.image} alt="product image" />
-                                        <div className="productInfo">
-                                            <span className="name">{item.variant.product.name}</span>
-                                            <span className="variant">{item.variant.name}</span>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div className="quantity">
-
-
-                                        <button onClick={() => quantityDecrease(item)}>-</button>
-                                        {item.quantity}
-                                        <button onClick={() => quantityIncrease(item)}>+</button>
-                                    </div>
-                                </td>
-                                <td className="subtotal">
-                                    {Number(item.quantity) * Number(item.variant.price)}
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
+                                <img src={item.variant.product.image} alt="cart Item Img" className="cartItemImg" />
+                                <div className="cartItemInfo">
+                                    <span className="cartItemName" onClick={() => navigate(`/products/${item.variant.product.slug}`)}>{item.variant.product.name}</span>
+                                    <span className="cartItemVariant">{item.variant.name}</span>
+                                    <span className="cartItemPrice">{item.variant.price} <span className="mutedText">PKR</span></span>
+                                </div>
+                            </div>
+                            <div className="cartItemRight">
+                                <div className="quantityControl">
+                                    <span className="decreaseQuantity" onClick={() => quantityDecrease(item)}>-</span>
+                                    <span className="quantity">{item.quantity}</span>
+                                    <span className="increaseQuantity" onClick={() => quantityIncrease(item)}>+</span>
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+                </div>
 
 
                 <div className="orderSummary">
-                    <h4>Order Summary</h4>
 
                     <div className="orderPaymentInfo">
 
                         <span className="subtotal">
-                            Subtotal: <span className="subtotalValue">{cart.subtotal}</span>
+                            Subtotal <span className="subtotalValue">{cart.subtotal} PKR</span>
                         </span>
                         <span className="deliveryCharge">
-                            Delivery Charge: <span className="subtotalValue">{cart.delivery_charge ? cart.delivery_charge : "FREE"}</span>
+                            Delivery Charge <span className="subtotalValue">{cart.delivery_charge ? cart.delivery_charge : "FREE"}{cart.delivery_charge ? <span className="mutedText">PKR</span> : ""}</span>
                         </span>
                         <hr />
                         <span className="total">
-                            Total: <span className="subtotalValue">{cart.total}</span>
+                            Total <span className="subtotalValue">{cart.total} PKR</span>
                         </span>
                     </div>
 
 
-                    <button className="checkoutBtn">Proceed to Checkout</button>
+                    <button className="checkoutBtn">PROCEED TO CHECKOUT</button>
                 </div>
-            </div> : <span>Nothing to see here.</span>}
+            </div> : <div className="emptyCartMsg">Your bag is empty!</div>}
         </>
     )
 }
