@@ -82,7 +82,7 @@ export default function Cart() {
                     </div>
 
 
-                    <button className="checkoutBtn">PROCEED TO CHECKOUT</button>
+                    <button className="checkoutBtn" onClick={() => navigate("/checkout")}>PROCEED TO CHECKOUT</button>
                 </div>
             </div> : <div className="emptyCartMsg">Your bag is empty!</div>}
         </>
