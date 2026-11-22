@@ -69,7 +69,7 @@ def create_order(request):
     unavailable = [
         f"{item.variant.product.name} ({item.variant.name})"
         for item in cart_items
-        if not item.variant.in_stock or item.variant.product.active
+        if not item.variant.in_stock or not item.variant.product.active
     ]
 
     if unavailable:
