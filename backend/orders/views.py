@@ -91,6 +91,11 @@ def create_order(request):
             subtotal=subtotal,
             delivery_charge=delivery_charge,
             total=total,
+            full_name=full_name,
+            phone_number=phone_number,
+            city=city,
+            address=address,
+            note=note,
         )
 
         for item in cart_items:
@@ -102,11 +107,6 @@ def create_order(request):
                 quantity=item.quantity,
                 product_name=item.variant.product.name,
                 variant_name=item.variant.name,
-                full_name=full_name,
-                phone_number=phone_number,
-                city=city,
-                address=address,
-                note=note,
             )
 
         cart.items.all().delete()
