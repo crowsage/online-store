@@ -852,6 +852,10 @@ h1 {
     gap: 8px;
 }
 
+
+.orderInfo .subtotal,
+.orderInfo .total,
+.orderInfo .deliveryCharge,
 .cartView .orderSummary .subtotal,
 .cartView .orderSummary .total,
 .cartView .orderSummary .deliveryCharge {
@@ -863,6 +867,9 @@ h1 {
     width: 100%;
 }
 
+.orderInfo .subtotal,
+.orderInfo .total,
+.orderInfo .deliveryCharge,
 .cartView .orderSummary .subtotalValue,
 .cartView .orderSummary .totalValue,
 .cartView .orderSummary .deliveryChargeValue {
@@ -870,6 +877,7 @@ h1 {
     font-weight: 500;
 }
 
+.orderInfo hr,
 .cartView .orderSummary hr {
     opacity: 0.5;
 
@@ -956,20 +964,6 @@ h1 {
     gap: 16px;
 }
 
-.checkoutContainer .orderSummary {
-    display: flex;
-    flex-direction: column;
-    height: fit-content;
-
-    flex: 1;
-
-    padding: 32px;
-
-    border: 1px solid var(--border);
-    border-radius: var(--default-border-radius);
-
-    gap: 16px;
-}
 
 .orderDetail {
     display: flex;
@@ -1013,4 +1007,38 @@ h1 {
 .placeOrderBtn:hover {
     background-color: transparent;
     color: var(--text);
+}
+
+.checkoutContainer .orderSummary {
+    display: flex;
+    flex-direction: column;
+    height: fit-content;
+
+    flex: 1;
+
+    padding: 32px;
+
+    border: 1px solid var(--border);
+    border-radius: var(--default-border-radius);
+
+    gap: 16px;
+
+    min-width: 350px;
+}
+
+.checkoutContainer .orderSummary .cartItemList {
+    display: flex;
+    flex-direction: column;
+
+    gap: 4px;
+}
+
+.checkoutContainer .orderSummary .cartItemDetail {
+    display: flex;
+    justify-content: space-between;
+}
+
+.checkoutContainer .orderInfo {
+    display: flex;
+    flex-direction: column;
 }

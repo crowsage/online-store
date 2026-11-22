@@ -37,7 +37,7 @@ export default function Login() {
         const success = await login(username, password)
 
         if (success) {
-            navigate("/")
+            navigate(-1)
             return
         }
 
