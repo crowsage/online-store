@@ -7,6 +7,7 @@ import ProductDetail from "./pages/ProductDetail"
 import Cart from "./pages/Cart"
 import { CartProvider } from "./context/CartContext"
 import Checkout from "./pages/Checkout"
+import OrderDetail from "./pages/OrderDetail"
 
 export default function App() {
 
@@ -18,6 +19,7 @@ export default function App() {
     { path: "/products/:slug", element: <ProductDetail /> },
     { path: "/cart", element: <Cart /> },
     { path: "/checkout", element: <Checkout /> },
+    { path: "/orders/:id", element: <OrderDetail /> },
   ])
 
 

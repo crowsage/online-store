@@ -1042,3 +1042,43 @@ h1 {
     display: flex;
     flex-direction: column;
 }
+
+/* Order Detail Page */
+.orderDetailContainer {
+    display: flex;
+    flex-direction: column;
+
+    gap: 32px;
+
+    padding: 64px;
+}
+
+.orderInfo {
+    display: flex;
+    flex-direction: column;
+
+    gap: 4px;
+
+    width: 700px;
+
+    border: 1px solid var(--border);
+
+    padding: 32px;
+    border-radius: var(--default-border-radius);
+}
+
+.orderInfo h2 {
+    margin: 8px 0px;
+}
+
+.orderInfo .orderInfoLabel {
+    color: var(--muted);
+}
+
+.orderInfo span {
+    display: flex;
+    width: 100%;
+
+    color: var(--text);
+    font-weight: 600;
+}
