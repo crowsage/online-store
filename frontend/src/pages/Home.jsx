@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react"
-import ProductCard from "../components/ProductCard"
+import ProductCarousel from "../components/ProductCarousel"
 import { Link } from "react-router-dom"
-import Header from "../components/Header"
+
+import { CgShoppingBag } from "react-icons/cg"
 
 export default function Home() {
 
@@ -30,29 +31,19 @@ export default function Home() {
 
     return (
         <>
-            <div className="hero">
-                <Header />
-                <div className="navBar">
-                    <Link className="navLinks">CASUAL SHIRTS</Link>
-                    <Link className="navLinks">T-SHIRTS</Link>
-                    <Link className="navLinks">JACKETS</Link>
-                    <Link className="navLinks">PANTS</Link>
-                </div>
-                <div className="promo">
-                    <img src="/images/promo.webp" alt="Promo" className="promoImg" />
-                </div>
 
+            <div className="homePageHeader">
+                <span className="homePageDecorativeHeading">GOOD CLOTHING</span>
+                <CgShoppingBag className="cartIcon" />
             </div>
-            <div className="catalog">
-                <h1>Products</h1>
-                {products && <div className="productContainer">
 
-                    {products.map((product) => (
-                        <ProductCard product={product} key={product.id} />
-                    ))}
-
-                </div>}
+            <div className="homePageHeading">
+                <h1>GOODWEAR</h1>
+                <span className="homePageSubheading">STREETWEAR MADE ON STREETS</span>
             </div>
+            {products && <div className="homePageProductSection">
+                <ProductCarousel products={products} />
+            </div>}
         </>
     )
 }
